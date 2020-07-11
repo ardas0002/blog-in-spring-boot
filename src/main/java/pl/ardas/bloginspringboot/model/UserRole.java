@@ -1,5 +1,6 @@
 package pl.ardas.bloginspringboot.model;
 
+
 import javax.persistence.*;
 
 @Entity
@@ -35,5 +36,14 @@ public class UserRole {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRole{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

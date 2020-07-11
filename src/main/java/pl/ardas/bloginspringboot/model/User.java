@@ -1,5 +1,7 @@
 package pl.ardas.bloginspringboot.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import java.util.*;
 
 @Entity
 @Table(name = "user")
+@Getter
+@Setter
 public class User {
 
     @Id
@@ -32,7 +36,7 @@ public class User {
     @Email(message = "Please provide correct email.")
     private String email;
     @ManyToMany
-    @JoinTable(name = "user_roles",
+    @JoinTable(name = "user_role",
     joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
     inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")})
     private Set<UserRole> roles = new HashSet<>();
@@ -139,5 +143,20 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, login, firstName, lastName, email, roles);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                ", posts=" + posts +
+                ", comments=" + comments +
+                '}';
     }
 }
