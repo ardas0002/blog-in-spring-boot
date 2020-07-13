@@ -2,9 +2,12 @@ package pl.ardas.bloginspringboot.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -18,6 +21,10 @@ public class Comment {
     @Column(name = "comment_content")
     @Lob
     private String content;
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
     @ManyToOne
     @JoinColumn(name = "author_id")
     private User user;
@@ -33,6 +40,22 @@ public class Comment {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
+        this.updateDateTime = updateDateTime;
     }
 
     public String getContent() {

@@ -2,11 +2,14 @@ package pl.ardas.bloginspringboot.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Entity
@@ -35,6 +38,8 @@ public class User {
     @Column(name = "email", unique = true, nullable = false)
     @Email(message = "Please provide correct email.")
     private String email;
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
     @ManyToMany
     @JoinTable(name = "user_role",
     joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
@@ -101,6 +106,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
     }
 
     public Set<UserRole> getRoles() {

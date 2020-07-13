@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Error</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-light fixed-top">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav d-flex">
+            <li class="nav-item">
+                <a class="nav-link" href="">Rejestracja</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="">Logowanie</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="jumbotron jumbotron-fluid jumbotron-home">
+    <div class="container" style="text-align: center">
+        <h1 class="display-4">Login</h1>
+        <p class="lead">Login to access </p>
+    </div>
+</div>
+<div class="container">
+    <img class="error" th:src="@{/resources/img/error.png}" alt="error">
+    <h1 class="display-4 text-center">404</h1>
+</div>
+</body>
+</html>
+
