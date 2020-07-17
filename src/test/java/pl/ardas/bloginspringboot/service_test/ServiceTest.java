@@ -1,4 +1,4 @@
-package pl.ardas.bloginspringboot.servicetest;
+package pl.ardas.bloginspringboot.service_test;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,16 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import pl.ardas.bloginspringboot.exceptions.PageNotFound;
+import pl.ardas.bloginspringboot.exception.PageNotFound;
 import pl.ardas.bloginspringboot.model.Post;
 import pl.ardas.bloginspringboot.repository.PostRepository;
 import pl.ardas.bloginspringboot.service.HomeService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,7 +38,7 @@ class ServiceTest extends HomeService {
 
         assertThatThrownBy(() -> homeService.listAll(i))
                           .isInstanceOf(PageNotFound.class)
-                          .hasMessage("Page not found");
+                          .hasMessage("Page " + i + " not found");
     }
 
     @Test

@@ -1,5 +1,6 @@
 package pl.ardas.bloginspringboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,6 +29,7 @@ public class User {
     @Column(name = "password", nullable = false)
     @Length(min = 5, message = "Your password must have at least 5 characters")
     @NotEmpty(message = "Please provide your password")
+    @JsonIgnore
     private String password;
     @Column(name = "first_name", nullable = false)
     @NotEmpty(message = "Please provide your first name.")

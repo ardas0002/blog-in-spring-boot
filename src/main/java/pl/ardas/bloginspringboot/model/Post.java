@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +38,20 @@ public class Post {
     private LocalDateTime updateDateTime;
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
+
+    public Post(){};
+
+    public Post(Long id, User author, String title, String summary, String content, LocalDateTime createDateTime,
+                LocalDateTime updateDateTime){
+                this.id = id;
+                this.author = author;
+                this.title = title;
+                this.summary = summary;
+                this.content = content;
+                this.createDateTime = createDateTime;
+                this.updateDateTime = updateDateTime;
+    }
+
 
     public Long getId() {
         return id;
