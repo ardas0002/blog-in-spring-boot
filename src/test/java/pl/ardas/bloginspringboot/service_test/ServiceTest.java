@@ -13,7 +13,7 @@ import pl.ardas.bloginspringboot.exception.PageNotFound;
 import pl.ardas.bloginspringboot.model.Post;
 import pl.ardas.bloginspringboot.repository.PostRepository;
 import pl.ardas.bloginspringboot.service.HomeService;
-
+import static org.mockito.BDDMockito.given;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -34,7 +34,7 @@ class ServiceTest extends HomeService {
         int pageSize = 3;
         Pageable pageable = PageRequest.of(i - 1, pageSize);
 
-        when(postRepository.findAll(pageable)).thenReturn(Page.empty());
+        given(postRepository.findAll(pageable)).willReturn(Page.empty());
 
         assertThatThrownBy(() -> homeService.listAll(i))
                           .isInstanceOf(PageNotFound.class)
@@ -49,7 +49,7 @@ class ServiceTest extends HomeService {
         List<Post> postList = List.of(new Post());
         PageImpl<Post> page = new PageImpl<>(postList);
 
-        when(postRepository.findAll(pageable)).thenReturn(page);
+        given(postRepository.findAll(pageable)).willReturn(page);
 
         assertThat(homeService.listAll(i)).isNotEmpty();
     }
