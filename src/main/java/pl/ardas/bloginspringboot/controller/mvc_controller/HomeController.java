@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import pl.ardas.bloginspringboot.exception.PageNotFound;
@@ -22,7 +23,6 @@ public class HomeController{
     public String home(Model model) throws PageNotFound {
         Page<Post> page = service.listAll(1);
         List<Post> posts = page.getContent();
-
         model.addAttribute("currentPage", 1);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("posts", posts);
@@ -43,5 +43,11 @@ public class HomeController{
         model.addAttribute("posts", posts);
 
         return "index";
+    }
+
+    @ExceptionHandler(PageNotFound.class)
+    public String pageNotFound(Model model, Exception ex){
+        model.addAttribute("message", ex.getMessage());
+        return "fatalError";
     }
 }

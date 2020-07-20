@@ -5,7 +5,7 @@
     <title>Error</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-light fixed-top">
@@ -27,8 +27,9 @@
     </div>
 </div>
 <div class="container">
-    <img class="error" th:src="@{/resources/img/error.png}" alt="error">
-    <h1 class="display-4 text-center">404</h1>
+    <img th:id="erricon" th:src="@{/img/error.png}" alt="error" src="../static/img/error.png">
+    <h1 class="display-1 text-center">404</h1>
+    <h2 class="text-center display-4" th:text="${message}"></h2>
 </div>
 </body>
 </html>

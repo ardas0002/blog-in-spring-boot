@@ -4,11 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -24,9 +22,9 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
 class HomeRestControllerTest {
@@ -80,9 +78,10 @@ class HomeRestControllerTest {
         given(homeService.listAll(i)).willThrow(new PageNotFound(i));
 
 
-        mvc.perform(MockMvcRequestBuilders.get("/api/page/{number}", 10)
+        mvc.perform(MockMvcRequestBuilders.get("/api/page/{number}", i)
                                           .accept(MediaType.APPLICATION_JSON))
-                                          .andExpect(status().isNotFound());
+                                          .andExpect(status().isNotFound())
+                                          .andExpect(jsonPath("$.error", is("Page " + i + " not found")));
 
     }
 }

@@ -14,13 +14,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
 public class HomeRestController {
 
     @Autowired
     private HomeService service;
 
-    @GetMapping("/page/{number}")
+    @GetMapping("/api/page/{number}")
     public ResponseEntity<List<PostDto>> home(@PathVariable int number) throws PageNotFound {
         Page<Post> page = service.listAll(number);
         List<PostDto> postDtos = page.getContent()

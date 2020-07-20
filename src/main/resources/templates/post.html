@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-light fixed-top">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav d-flex">
+            <li class="nav-item">
+                <a class="nav-link" style="color: white" href="">Rejestracja</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="color: white" href="">Logowanie</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="jumbotron jumbotron-fluid jumbotron-home">
+    <div class="container" style="text-align: center">
+        <h1 class="display-4">Blog</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-center align-items-center mb-3">
+        <div class="jumbotron post-jumbotron" style="height: 50%">
+            <h1 class="display-4" th:text="${post.getTitle()}">Lorem ipsum dolor</h1>
+            <hr class="my-4">
+            <p th:text="${post.getContent()}">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur magna risus, maximus non fringilla
+                ac, egestas a felis. Sed id venenatis quam, sit amet consequat est. In congue pretium ultricies. Aenean
+                consectetur vestibulum ex, eu mollis tortor finibus eu. Fusce pellentesque erat a nisl porta lacinia.
+                Vivamus nulla ante, eleifend in nunc id, lacinia fringilla sapien. Donec aliquam faucibus velit, ac
+                gravida felis consequat sed. Suspendisse posuere ornare ex sed blandit.
+
+                Sed vitae dolor nisi. Phasellus vitae nisl et sem volutpat scelerisque a eu massa. Mauris tincidunt
+                malesuada commodo. Donec tempor cursus vulputate. Phasellus lacinia justo at nisi feugiat, eu efficitur
+                ante condimentum. Vestibulum blandit nulla massa. Nullam ac turpis tellus. Suspendisse dolor erat,
+                laoreet ac arcu non, molestie luctus orci. Vestibulum ac varius massa. Fusce quis tristique leo.
+                Vestibulum dignissim hendrerit mi, volutpat maximus nibh mollis sit amet. Nunc eu eros vitae quam varius
+                dictum eu in nibh. Mauris fermentum, nisi sit amet vehicula fringilla, lorem magna porta purus, ac
+                tincidunt nulla enim sit amet nibh. Vestibulum facilisis lobortis leo, a suscipit quam lacinia eget.
+                Nunc vestibulum enim nibh, sit amet pellentesque purus ultricies a.
+
+                Duis a turpis eget ante facilisis gravida. Nulla eget urna ligula. Sed lacinia justo lacinia rhoncus
+                suscipit. Aenean ut libero eu lacus scelerisque mollis at tincidunt turpis. Nulla tristique id metus ac
+                vestibulum. Ut efficitur, ex at eleifend condimentum, ligula massa pellentesque sem, nec dapibus lacus
+                neque ac metus. Cras convallis sapien nibh, eu blandit eros congue ac. Pellentesque purus velit,
+                lobortis in elit lobortis, viverra aliquam urna. Integer imperdiet magna in sapien mattis, nec bibendum
+                arcu faucibus. Quisque scelerisque laoreet aliquam. Etiam blandit dui ante, a eleifend urna suscipit
+                finibus. Mauris eget nunc id lacus pellentesque varius. Sed consectetur maximus ornare.
+
+                Quisque sit amet lorem mi. Nullam vel justo et dui semper posuere. Proin finibus augue in neque
+                porttitor, in feugiat sapien rutrum. Aliquam laoreet ante id quam tempus imperdiet. Nulla nibh elit,
+                euismod nec sapien nec, feugiat ultrices libero. Integer bibendum augue sed massa cursus, sit amet
+                venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
+                placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id neque.
+                Nulla id odio nibh. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+                Suspendisse a rutrum enim. Sed lobortis id libero vitae placerat. Suspendisse a feugiat ligula. Etiam
+                sollicitudin metus lectus, ac pretium sem congue at. Phasellus vehicula velit et lectus pellentesque,
+                non laoreet leo fermentum. Mauris mi ante, facilisis non odio non, laoreet sagittis est. Integer
+                hendrerit, leo id rutrum ornare, nunc nisl posuere diam, vel sagittis neque diam vitae velit. Cras sit
+                amet viverra ligula. Mauris sit amet odio nec dolor varius maximus. Praesent accumsan ex non metus
+                vehicula, sed consectetur felis ornare. Suspendisse id augue auctor, porttitor ligula posuere, malesuada
+                enim. Nunc eleifend tortor tortor, blandit luctus mi bibendum id.</p>
+            <footer class="blockquote-footer">Dodane dnia: <p
+                    th:text="${#temporals.format(post.getCreateDateTime(), 'dd-MM-yyyy HH:mm')}"></p></footer>
+        </div>
+        <button type="button" class="btn btn-secondary btn-lg btn-block">Komentarze:</button>
+    </div>
+    <div class="row justify-content-center align-items-center mb-3">
+            <div class="comment">
+                <p><h4>Leonidas</h4></p>
+                <p>venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
+                    placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id
+                    neque.</p>
+                <footer class="blockquote-footer">Dodane: 2020-06-31</footer>
+            </div>
+            <div class="comment">
+                <p><h4>Leonidas</h4></p>
+                <p>venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
+                    placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id neque.</p>
+                <footer class="blockquote-footer">Dodane: 2020-06-28</footer>
+            </div>
+            <div class="comment">
+                <p><h4>Leonidas</h4></p>
+                <p>venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
+                    placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id neque.</p>
+                <footer class="blockquote-footer">Dodane: 2020-06-24</footer>
+            </div>
+    </div>
+</div>
+</body>
+</html>

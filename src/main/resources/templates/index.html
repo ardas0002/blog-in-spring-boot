@@ -13,27 +13,44 @@
     <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
         <ul class="navbar-nav d-flex">
             <li class="nav-item">
-                <a class="nav-link" href="">Rejestracja</a>
+                <a class="nav-link" style="color: white" href="">Rejestracja</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Logowanie</a>
+                <a class="nav-link"  style="color: white" href="">Logowanie</a>
             </li>
         </ul>
     </div>
 </nav>
 <div class="jumbotron jumbotron-fluid jumbotron-home">
     <div class="container" style="text-align: center">
-        <h1 class="display-4">Login</h1>
-        <p class="lead">Login to access </p>
+        <h1 class="display-4">Blog</h1>
     </div>
 </div>
-
 <div class="container">
   <div class="post" th:each="post : ${posts}" th:remove="all-but-first">
+      <div class="row justify-content-center align-items-center mb-3">
+      <div class="jumbotron post-jumbotron" style="height: 50%">
+          <h1 class="display-4" th:text="${post.getTitle()}">Lorem ipsum dolor</h1>
+          <hr class="my-4">
+          <p th:text="${post.getSummary()}">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel justo ac diam vulputate pellentesque
+              vitae vestibulum ligula. Suspendisse porta euismod ultrices. Sed non nisi efficitur, faucibus enim
+              finibus, gravida ex. Nulla efficitur tincidunt porta.
+              Etiam porta tortor odio, eu tincidunt tortor auctor quis. Lorem ipsum dolor sit amet, consectetur
+              adipiscing elit. Nam gravida vehicula volutpat. Vivamus quis pretium est, ac molestie erat. Suspendisse
+              arcu tellus, commodo vitae ultricies nec, facilisis sed elit. Curabitur scelerisque id ex sed egestas.
+              Duis gravida tortor nec bibendum finibus.
+              Curabitur consectetur tellus ut ipsum gravida, sed tempor dolor vehicula. Aliquam vehicula varius tellus
+              in porttitor. Ut eu massa at dolor porta rhoncus. Donec at lectus velit.</p>
+          <footer class="blockquote-footer">Dodane dnia: <p th:text="${#temporals.format(post.getCreateDateTime(), 'dd-MM-yyyy HH:mm')}"></p></footer>
+      </div>
+      </div>
     <div class="row justify-content-center align-items-center mb-3">
-        <div class="col-lg-10 border border-dark">
-            <p class="title h4 text-center" th:text="${post.getTitle()}">Lorem ipsum dolor</p>
-            <p th:text="${post.getSummary()}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel justo ac diam vulputate pellentesque
+        <div class="jumbotron post-jumbotron" style="height: 50%">
+            <h1 class="display-4" th:text="${post.getTitle()}">Lorem ipsum dolor</h1>
+            <hr class="my-4">
+            <p th:text="${post.getSummary()}">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel justo ac diam vulputate pellentesque
                 vitae vestibulum ligula. Suspendisse porta euismod ultrices. Sed non nisi efficitur, faucibus enim
                 finibus, gravida ex. Nulla efficitur tincidunt porta.
                 Etiam porta tortor odio, eu tincidunt tortor auctor quis. Lorem ipsum dolor sit amet, consectetur
@@ -41,12 +58,16 @@
                 arcu tellus, commodo vitae ultricies nec, facilisis sed elit. Curabitur scelerisque id ex sed egestas.
                 Duis gravida tortor nec bibendum finibus.
                 Curabitur consectetur tellus ut ipsum gravida, sed tempor dolor vehicula. Aliquam vehicula varius tellus
-                in porttitor. Ut eu massa at dolor porta rhoncus. Donec at lectus velit.</p></div>
+                in porttitor. Ut eu massa at dolor porta rhoncus. Donec at lectus velit.</p>
+            <footer class="blockquote-footer">Dodane dnia: <p th:text="${#temporals.format(post.getCreateDateTime(), 'yyyy-MM-dd HH:mm')}"></p></footer>
+        </div>
     </div>
     <div class="row justify-content-center align-items-center mb-3">
-        <div class="col-lg-10 border border-dark">
-            <p class="title h4 text-center">Lorem ipsum dolor</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel justo ac diam vulputate pellentesque
+        <div class="jumbotron post-jumbotron" style="height: 50%">
+            <h1 class="display-4" th:text="${post.getTitle()}">Lorem ipsum dolor</h1>
+            <hr class="my-4">
+            <p th:text="${post.getSummary()}">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel justo ac diam vulputate pellentesque
                 vitae vestibulum ligula. Suspendisse porta euismod ultrices. Sed non nisi efficitur, faucibus enim
                 finibus, gravida ex. Nulla efficitur tincidunt porta.
                 Etiam porta tortor odio, eu tincidunt tortor auctor quis. Lorem ipsum dolor sit amet, consectetur
@@ -54,22 +75,12 @@
                 arcu tellus, commodo vitae ultricies nec, facilisis sed elit. Curabitur scelerisque id ex sed egestas.
                 Duis gravida tortor nec bibendum finibus.
                 Curabitur consectetur tellus ut ipsum gravida, sed tempor dolor vehicula. Aliquam vehicula varius tellus
-                in porttitor. Ut eu massa at dolor porta rhoncus. Donec at lectus velit.</p></div>
-    </div>
-    <div class="row justify-content-center align-items-center mb-3">
-        <div class="col-lg-10 border border-dark">
-            <p class="title h4 text-center">Lorem ipsum dolor</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel justo ac diam vulputate pellentesque
-                vitae vestibulum ligula. Suspendisse porta euismod ultrices. Sed non nisi efficitur, faucibus enim
-                finibus, gravida ex. Nulla efficitur tincidunt porta.
-                Etiam porta tortor odio, eu tincidunt tortor auctor quis. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Nam gravida vehicula volutpat. Vivamus quis pretium est, ac molestie erat. Suspendisse
-                arcu tellus, commodo vitae ultricies nec, facilisis sed elit. Curabitur scelerisque id ex sed egestas.
-                Duis gravida tortor nec bibendum finibus.
-                Curabitur consectetur tellus ut ipsum gravida, sed tempor dolor vehicula. Aliquam vehicula varius tellus
-                in porttitor. Ut eu massa at dolor porta rhoncus. Donec at lectus velit.</p></div>
+                in porttitor. Ut eu massa at dolor porta rhoncus. Donec at lectus velit.</p>
+            <footer class="blockquote-footer">Dodane dnia: <p th:text="${#temporals.format(post.getCreateDateTime(), 'dd-MM-yyyy HH:mm')}"></p></footer>
+        </div>
     </div>
     </div>
+
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
             <li class="page-item"><a th:if="${currentPage > 1}" th:href="@{/page/{number}(number = ${number - 1})}" class="page-link" href="#">Previous</a></li>

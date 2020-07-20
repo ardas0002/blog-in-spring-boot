@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query("SELECT p From Post p left join fetch p.comments")
+    @Query("SELECT p FROM Post p LEFT JOIN FETCH p.comments")
     List<Post> findAllPosts();
 }
