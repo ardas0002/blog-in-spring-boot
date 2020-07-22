@@ -21,7 +21,7 @@ public class HomeController{
 
     @GetMapping("/")
     public String home(Model model) throws PageNotFound {
-        Page<Post> page = service.listAll(1);
+        Page<Post> page = service.getPage(1);
         List<Post> posts = page.getContent();
         model.addAttribute("currentPage", 1);
         model.addAttribute("totalPages", page.getTotalPages());
@@ -32,7 +32,7 @@ public class HomeController{
 
     @GetMapping("/page/{number}")
     public String page(Model model, @PathVariable int number) throws PageNotFound{
-        Page<Post> page = service.listAll(number);
+        Page<Post> page = service.getPage(number);
         List<Post> posts = page.getContent();
 
         if(number == 1)

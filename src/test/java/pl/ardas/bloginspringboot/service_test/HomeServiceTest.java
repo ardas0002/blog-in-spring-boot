@@ -5,22 +5,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import pl.ardas.bloginspringboot.exception.PageNotFound;
 import pl.ardas.bloginspringboot.model.Post;
 import pl.ardas.bloginspringboot.repository.PostRepository;
 import pl.ardas.bloginspringboot.service.HomeService;
+
 import static org.mockito.BDDMockito.given;
+
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class ServiceTest extends HomeService {
+class HomeServiceTest extends HomeService {
 
     @Mock
     private PostRepository postRepository;
@@ -29,29 +27,29 @@ class ServiceTest extends HomeService {
     private HomeService homeService;
 
     @Test
-    void shouldThrowExceptionWithPageNotFound(){
+    void shouldThrowPageNotFoundException() {
         int i = 10;
         int pageSize = 3;
-        Pageable pageable = PageRequest.of(i - 1, pageSize);
+        Pageable pageable = PageRequest.of(i - 1, pageSize, Sort.by("createDateTime").descending());
 
-        given(postRepository.findAll(pageable)).willReturn(Page.empty());
+        given(postRepository.findPosts(pageable)).willReturn(Page.empty());
 
-        assertThatThrownBy(() -> homeService.listAll(i))
-                          .isInstanceOf(PageNotFound.class)
-                          .hasMessage("Page " + i + " not found");
+        assertThatThrownBy(() -> homeService.getPage(i))
+                .isInstanceOf(PageNotFound.class)
+                .hasMessage("Page " + i + " not found");
     }
 
     @Test
     void shouldReturnPage() throws PageNotFound {
         int i = 1;
         int pageSize = 3;
-        Pageable pageable = PageRequest.of(i - 1, pageSize);
-        List<Post> postList = List.of(new Post());
+        Pageable pageable = PageRequest.of(i - 1, pageSize, Sort.by("createDateTime").descending());
+        List<Post> postList = List.of(new Post(), new Post(), new Post());
         PageImpl<Post> page = new PageImpl<>(postList);
 
-        given(postRepository.findAll(pageable)).willReturn(page);
+        given(postRepository.findPosts(pageable)).willReturn(page);
 
-        assertThat(homeService.listAll(i)).isNotEmpty();
+        assertThat(homeService.getPage(i)).isNotEmpty().hasSize(3);
     }
 }
 

@@ -16,10 +16,10 @@ public class HomeService {
     @Autowired
     private PostRepository postRepository;
 
-    public Page<Post> listAll(int pageNum) throws PageNotFound {
+    public Page<Post> getPage(int pageNum) throws PageNotFound {
         int pageSize = 3;
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by("createDateTime").descending());
-        Page<Post> page = postRepository.findAll(pageable);
+        Page<Post> page = postRepository.findPosts(pageable);
         if(isEmptyPage(page))
             throw new PageNotFound(pageNum);
         return page;

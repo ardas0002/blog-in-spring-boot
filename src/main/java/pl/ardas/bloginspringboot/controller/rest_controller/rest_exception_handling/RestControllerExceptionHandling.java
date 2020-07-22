@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import pl.ardas.bloginspringboot.exception.CustomErrorResponse;
 import pl.ardas.bloginspringboot.exception.PageNotFound;
+import pl.ardas.bloginspringboot.exception.PostNotFound;
 
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-public class HomeRestControllerExceptionHandling extends ResponseEntityExceptionHandler {
+public class RestControllerExceptionHandling extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(PageNotFound.class)
+    @ExceptionHandler({PageNotFound.class, PostNotFound.class})
     public ResponseEntity<CustomErrorResponse> pageNotFound(Exception ex){
         CustomErrorResponse errors = new CustomErrorResponse();
         errors.setTimestamp(LocalDateTime.now());
@@ -22,4 +23,6 @@ public class HomeRestControllerExceptionHandling extends ResponseEntityException
 
         return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
+
+
 }

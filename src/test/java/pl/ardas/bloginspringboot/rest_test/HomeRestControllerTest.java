@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.ardas.bloginspringboot.controller.rest_controller.HomeRestController;
-import pl.ardas.bloginspringboot.controller.rest_controller.rest_exception_handling.HomeRestControllerExceptionHandling;
+import pl.ardas.bloginspringboot.controller.rest_controller.rest_exception_handling.RestControllerExceptionHandling;
 import pl.ardas.bloginspringboot.exception.PageNotFound;
 import pl.ardas.bloginspringboot.model.Post;
 import pl.ardas.bloginspringboot.model.User;
@@ -40,7 +40,7 @@ class HomeRestControllerTest {
     @BeforeEach
     void setup() {
         mvc = MockMvcBuilders.standaloneSetup(homeRestController)
-                .setControllerAdvice(new HomeRestControllerExceptionHandling())
+                .setControllerAdvice(new RestControllerExceptionHandling())
                 .build();
     }
 
@@ -57,7 +57,7 @@ class HomeRestControllerTest {
                 LocalDateTime.of(2020, 8, 21, 21, 54, 42), LocalDateTime.of(2020, 8, 21, 21, 54, 42));
 
         List<Post> pageList = Arrays.asList(post, post2, post3);
-        given(homeService.listAll(1)).willReturn(new PageImpl<>(pageList));
+        given(homeService.getPage(1)).willReturn(new PageImpl<>(pageList));
 
         mvc.perform(MockMvcRequestBuilders.get("/api/page/{number}", 1)
                                           .accept(MediaType.APPLICATION_JSON))
@@ -75,7 +75,7 @@ class HomeRestControllerTest {
     @Test
     void shouldThrowPageNotFoundException() throws Exception{
         int i = 10;
-        given(homeService.listAll(i)).willThrow(new PageNotFound(i));
+        given(homeService.getPage(i)).willThrow(new PageNotFound(i));
 
 
         mvc.perform(MockMvcRequestBuilders.get("/api/page/{number}", i)

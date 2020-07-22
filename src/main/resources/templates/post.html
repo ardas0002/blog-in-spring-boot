@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Form</title>
+    <title th:text="${#strings.replace(post.title, ' ', '-').toLowerCase()}">Post</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet">
@@ -72,15 +72,16 @@
             <footer class="blockquote-footer">Dodane dnia: <p
                     th:text="${#temporals.format(post.getCreateDateTime(), 'dd-MM-yyyy HH:mm')}"></p></footer>
         </div>
-        <button type="button" class="btn btn-secondary btn-lg btn-block">Komentarze:</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block" th:if="${comments}">Komentarze:</button>
     </div>
-    <div class="row justify-content-center align-items-center mb-3">
+    <div class="row justify-content-center align-items-center mb-3" th:each="comment : ${comments}"  th:remove="all-but-first" th:if="${comments}">
             <div class="comment">
-                <p><h4>Leonidas</h4></p>
-                <p>venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
+                <p><h4 th:text="${comment.getUser().getLogin()}">Leonidas</h4></p>
+                <p th:text="${comment.getContent()}">venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
                     placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id
                     neque.</p>
-                <footer class="blockquote-footer">Dodane: 2020-06-31</footer>
+                <footer class="blockquote-footer">Dodane dnia: <p
+                        th:text="${#temporals.format(comment.getCreateDateTime(), 'dd-MM-yyyy HH:mm')}"></p></footer>
             </div>
             <div class="comment">
                 <p><h4>Leonidas</h4></p>

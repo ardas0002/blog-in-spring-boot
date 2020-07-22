@@ -1,10 +1,18 @@
 package pl.ardas.bloginspringboot.model;
 
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "role")
+@Getter
+@Setter
+@NoArgsConstructor
 public class UserRole {
 
     @Id
@@ -14,36 +22,4 @@ public class UserRole {
     private String role;
     private String description;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        return "UserRole{" +
-                "id=" + id +
-                ", role='" + role + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
 }

@@ -1,5 +1,6 @@
 package pl.ardas.bloginspringboot.model.dto;
 
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostDto {
+public class PostCommentsDto extends PostDto {
 
     private Long id;
     private String authorLogin;
@@ -19,5 +20,6 @@ public class PostDto {
     private String content;
     private LocalDateTime createDateTime;
     private LocalDateTime updateDateTime;
-
+    private List<CommentDto> commentDtos;
 }
+

@@ -16,12 +16,16 @@ import java.util.stream.Collectors;
 @RestController
 public class HomeRestController {
 
-    @Autowired
     private HomeService service;
+
+    @Autowired
+    public HomeRestController(HomeService homeService){
+        this.service = homeService;
+    }
 
     @GetMapping("/api/page/{number}")
     public ResponseEntity<List<PostDto>> home(@PathVariable int number) throws PageNotFound {
-        Page<Post> page = service.listAll(number);
+        Page<Post> page = service.getPage(number);
         List<PostDto> postDtos = page.getContent()
                                      .stream()
                                      .map(ItemMapper::mapToPostDto)
