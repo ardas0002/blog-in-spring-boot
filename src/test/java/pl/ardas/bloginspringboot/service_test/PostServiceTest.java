@@ -17,6 +17,7 @@ import pl.ardas.bloginspringboot.service.PostService;
 
 import static org.assertj.core.api.Assertions.*;
 
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
@@ -38,45 +39,18 @@ class PostServiceTest {
     private CommentRepository commentRepository;
 
     @Test
-    void shouldReturnPost() throws PostNotFound {
-        User user = new User();
-        user.setLogin("Ardas");
-        user.setId(1L);
-
-        String title = "Lorem Ipsum";
+    void shouldReturnPostWithCommentsInDescendingDateOrder() throws PostNotFound {
 
         Post post = new Post();
         post.setId(1L);
-        post.setAuthor(user);
-        post.setTitle(title);
-        post.setSummary("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae turpis a turpis " +
-                "sagittis blandit eu in augue. Nulla tristique finibus blandit.");
-        post.setContent("Quisque vel risus sed metus luctus malesuada. Fusce vitae massa eget nulla vulputate pulvinar. " +
-                "Donec elementum sem sit amet viverra aliquet. Pellentesque non metus mollis, blandit mi sit amet, " +
-                "aliquam lacus. Sed semper vel arcu ornare rutrum. Suspendisse nec massa vel ex faucibus rutrum. " +
-                "Aenean vulputate, neque vulputate tristique placerat, nisi turpis semper dolor, et rutrum turpis " +
-                "lacus quis odio. Quisque congue sem rhoncus nisl dapibus mollis.");
-        post.setCreateDateTime(LocalDateTime.of(2020, Month.JULY, 20, 10, 10, 10));
 
         Comment comment1 = new Comment();
-        comment1.setId(1L);
-        comment1.setContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        comment1.setUser(user);
-        comment1.setPost(post);
         comment1.setCreateDateTime(LocalDateTime.of(2020, Month.JULY, 23, 10, 10, 10));
 
         Comment comment2 = new Comment();
-        comment2.setId(2L);
-        comment2.setContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        comment2.setUser(user);
-        comment2.setPost(post);
         comment2.setCreateDateTime(LocalDateTime.of(2020, Month.JULY, 20, 11, 10, 10));
 
         Comment comment3 = new Comment();
-        comment3.setId(3L);
-        comment3.setContent("Lorem ipsum dolor sit amet, consectetur adipiscing elit.");
-        comment3.setUser(user);
-        comment3.setPost(post);
         comment3.setCreateDateTime(LocalDateTime.of(2020, Month.JULY, 22, 12, 10, 10));
 
         List<Comment> comments = new ArrayList<>();
@@ -86,11 +60,11 @@ class PostServiceTest {
 
         Optional<List<Comment>> optionalComments = Optional.of(comments);
 
-        given(postRepository.findPost(title)).willReturn(post);
+        given(postRepository.findPost(anyString())).willReturn(post);
         given(commentRepository.findAllByPostId(1L)).willReturn(optionalComments);
 
-        assertThat(postService.getPost(title).getComments()).hasSize(3);
-        assertThat(postService.getPost(title).getComments().get(0)).isEqualTo(comment1);
+        assertThat(postService.getPost(anyString()).getComments()).hasSize(3);
+        assertThat(postService.getPost(anyString()).getComments().get(0)).isEqualTo(comment1);
     }
 
     @Test
