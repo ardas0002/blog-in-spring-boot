@@ -28,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
@@ -59,13 +60,6 @@ public class PostRestControllerTest {
         post.setId(1L);
         post.setAuthor(user);
         post.setTitle(title);
-        post.setSummary("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae turpis a turpis " +
-                "sagittis blandit eu in augue. Nulla tristique finibus blandit.");
-        post.setContent("Quisque vel risus sed metus luctus malesuada. Fusce vitae massa eget nulla vulputate pulvinar. " +
-                "Donec elementum sem sit amet viverra aliquet. Pellentesque non metus mollis, blandit mi sit amet, " +
-                "aliquam lacus. Sed semper vel arcu ornare rutrum. Suspendisse nec massa vel ex faucibus rutrum. " +
-                "Aenean vulputate, neque vulputate tristique placerat, nisi turpis semper dolor, et rutrum turpis " +
-                "lacus quis odio. Quisque congue sem rhoncus nisl dapibus mollis.");
         post.setCreateDateTime(LocalDateTime.of(2020, Month.JULY, 20, 10, 10, 10));
         post.setUpdateDateTime(LocalDateTime.of(2020, Month.JULY, 21, 10, 10, 10));
 
@@ -122,6 +116,7 @@ public class PostRestControllerTest {
         comment3.setCreateDateTime(LocalDateTime.of(2020, Month.JULY, 22, 12, 10, 10));
 
         List<Comment> commentList = Arrays.asList(comment1, comment2, comment3);
+        commentList.sort(Comparator.comparing(Comment::getCreateDateTime).reversed());
 
         post.setComments(commentList);
 
@@ -132,6 +127,7 @@ public class PostRestControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[*]", hasSize(8)))
                 .andExpect(jsonPath("$.commentDtos", hasSize(3)));
+
     }
 
     @Test
