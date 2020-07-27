@@ -9,25 +9,18 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-light fixed-top">
-    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <ul class="navbar-nav d-flex">
-            <li class="nav-item">
-                <a class="nav-link" style="color: white" href="">Rejestracja</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="color: white" href="">Logowanie</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+
 <div class="jumbotron jumbotron-fluid jumbotron-home">
+    <div class="mynav d-flex">
+        <div class="text-white pl-1">Rejestracja</div>
+        <div class="text-white pl-3">Logowanie</div>
+    </div>
     <div class="container" style="text-align: center">
         <h1 class="display-4">Blog</h1>
     </div>
 </div>
 <div class="container">
-    <div class="row justify-content-center align-items-center mb-3">
+    <div class="row justify-content-center mb-3">
         <div class="jumbotron post-jumbotron" style="height: 50%">
             <h1 class="display-4" th:text="${post.getTitle()}">Lorem ipsum dolor</h1>
             <hr class="my-4">
@@ -72,29 +65,33 @@
             <footer class="blockquote-footer">Dodane dnia: <p
                     th:text="${#temporals.format(post.getCreateDateTime(), 'dd-MM-yyyy HH:mm')}"></p></footer>
         </div>
-        <button type="button" class="btn btn-secondary btn-lg btn-block" th:if="${comments}">Komentarze:</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block m-0" th:if="${comments}">Komentarze:</button>
     </div>
-    <div class="row justify-content-center align-items-center mb-3" th:each="comment : ${comments}"  th:remove="all-but-first" th:if="${comments}">
-            <div class="comment">
-                <p><h4 th:text="${comment.getUser().getLogin()}">Leonidas</h4></p>
-                <p th:text="${comment.getContent()}">venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
-                    placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id
-                    neque.</p>
-                <footer class="blockquote-footer">Dodane dnia: <p
-                        th:text="${#temporals.format(comment.getCreateDateTime(), 'dd-MM-yyyy HH:mm')}"></p></footer>
+    <div class="row justify-content-center" th:each="comment : ${comments}"
+         th:remove="all-but-first" th:if="${comments}">
+        <div class="comment border p-2">
+            <div class="name">
+                <p class="text-secondary"><h5 th:text="${comment.getUser().getLogin()}">Leonidas</h5></p>
             </div>
-            <div class="comment">
-                <p><h4>Leonidas</h4></p>
-                <p>venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
-                    placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id neque.</p>
-                <footer class="blockquote-footer">Dodane: 2020-06-28</footer>
-            </div>
-            <div class="comment">
-                <p><h4>Leonidas</h4></p>
-                <p>venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
-                    placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id neque.</p>
-                <footer class="blockquote-footer">Dodane: 2020-06-24</footer>
-            </div>
+            <p class="font-weight-light" th:text="${comment.getContent()}">venenatis risus faucibus. Fusce quis nulla et ex tempor euismod.
+                Praesent eget accumsan ex. Integer
+                placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id
+                neque.</p>
+            <footer class="blockquote-footer">Dodane dnia: <p
+                    th:text="${#temporals.format(comment.getCreateDateTime(), 'dd-MM-yyyy HH:mm')}"></p></footer>
+        </div>
+        <div class="comment">
+            <p><h4>Leonidas</h4></p>
+            <p>venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
+                placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id neque.</p>
+            <footer class="blockquote-footer">Dodane: 2020-06-28</footer>
+        </div>
+        <div class="comment">
+            <p><h4>Leonidas</h4></p>
+            <p>venenatis risus faucibus. Fusce quis nulla et ex tempor euismod. Praesent eget accumsan ex. Integer
+                placerat bibendum condimentum. Cras quis velit sit amet mi scelerisque sodales consectetur id neque.</p>
+            <footer class="blockquote-footer">Dodane: 2020-06-24</footer>
+        </div>
     </div>
 </div>
 </body>

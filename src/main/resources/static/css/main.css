@@ -11,13 +11,18 @@
   background-size: cover;
 }
 
+.mynav{
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
 .comment{
-  margin-top: 13px;
-  border-bottom: lightgray solid 4px;
+  border-bottom: lightblue solid 4px;
   width: 800px;
 }
 
-p{
-  margin-top: 0px;
-  margin-bottom: 5px;
+
+.name{
+  border-bottom: lightblue solid 4px;
 }

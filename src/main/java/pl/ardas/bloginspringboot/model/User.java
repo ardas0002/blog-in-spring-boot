@@ -26,22 +26,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-    @Column(name = "login", nullable = false, unique = true)
-    @Length(min = 3, max = 20, message = "Your login must be between 3 and 20 characters.")
     private String login;
-    @Column(name = "password", nullable = false)
-    @Length(min = 5, message = "Your password must have at least 5 characters")
-    @NotEmpty(message = "Please provide your password")
-    @JsonIgnore
     private String password;
-    @Column(name = "first_name", nullable = false)
-    @NotEmpty(message = "Please provide your first name.")
     private String firstName;
-    @Column(name = "last_name", nullable = false)
-    @NotEmpty(message = "Please provide your last name.")
     private String lastName;
-    @Column(name = "email", unique = true, nullable = false)
-    @Email(message = "Please provide correct email.")
     private String email;
     @CreationTimestamp
     private LocalDateTime createDateTime;

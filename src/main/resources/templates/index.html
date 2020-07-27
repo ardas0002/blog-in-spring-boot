@@ -9,26 +9,19 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md navbar-light fixed-top">
-    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-        <ul class="navbar-nav d-flex">
-            <li class="nav-item">
-                <a class="nav-link" style="color: white" href="">Rejestracja</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" style="color: white" href="">Logowanie</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+
 <div class="jumbotron jumbotron-fluid jumbotron-home">
+    <div class="mynav d-flex">
+        <div class="text-white pl-1">Rejestracja</div>
+        <div class="text-white pl-3">Logowanie</div>
+    </div>
     <div class="container" style="text-align: center">
         <h1 class="display-4">Blog</h1>
     </div>
 </div>
 <div class="container">
     <div class="post" th:each="post : ${posts}" th:remove="all-but-first">
-        <div class="row justify-content-center align-items-center mb-3">
+        <div class="row justify-content-center mb-3">
             <div class="jumbotron post-jumbotron" style="height: 50%">
                 <a th:href="@{/post/{title}(title = ${#strings.replace(post.title, ' ', '-').toLowerCase()})}">
                     <h1 class="display-4" th:text="${post.getTitle()}">Lorem ipsum dolor</h1>
