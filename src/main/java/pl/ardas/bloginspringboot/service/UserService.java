@@ -1,6 +1,7 @@
 package pl.ardas.bloginspringboot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.ardas.bloginspringboot.exception.UserAlreadyExistException;
 import pl.ardas.bloginspringboot.model.User;
@@ -15,12 +16,14 @@ public class UserService {
 
     private UserRepository userRepository;
     private UserRoleRepository userRoleRepository;
-    private final static String role = "USER";
+    private PasswordEncoder passwordEncoder;
+    private final static String role = "ROLE_USER";
 
     @Autowired
-    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository){
+    public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.userRoleRepository = userRoleRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void registerNewUserAccount(UserDto userDto) throws UserAlreadyExistException {
@@ -32,8 +35,9 @@ public class UserService {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setRoles(Set.of(userRoleRepository.findByRole(role)));
+        user.setEnabled(true);
         userRepository.save(user);
     }
 

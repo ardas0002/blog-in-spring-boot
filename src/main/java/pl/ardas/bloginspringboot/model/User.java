@@ -33,7 +33,7 @@ public class User {
     private String email;
     @CreationTimestamp
     private LocalDateTime createDateTime;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
     joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
     inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "role_id")})
@@ -42,6 +42,7 @@ public class User {
     private List<Post> posts = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
+    private boolean isEnabled;
 
     public User(String login, String firstName, String lastName, String email){
         this.login = login;
@@ -49,4 +50,5 @@ public class User {
         this.lastName = lastName;
         this.email = email;
     }
+
 }

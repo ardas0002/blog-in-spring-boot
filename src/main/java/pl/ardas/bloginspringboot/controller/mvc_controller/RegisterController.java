@@ -42,7 +42,7 @@ public class RegisterController {
     }
 
     @PostMapping("/user/registration")
-    public String register(@Valid @ModelAttribute("user") UserDto user, BindingResult result, RedirectAttributes attributes){
+    public String register(@Valid @ModelAttribute("user") UserDto user, BindingResult result){
         if(result.hasErrors()){
             return "registration";
         }
