@@ -4,19 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
+import pl.ardas.bloginspringboot.exception.PostNotFound;
 import pl.ardas.bloginspringboot.exception.UserAlreadyExistException;
-import pl.ardas.bloginspringboot.model.User;
+import pl.ardas.bloginspringboot.exception.VerificationTokenExpired;
 import pl.ardas.bloginspringboot.model.dto.UserDto;
 import pl.ardas.bloginspringboot.service.UserService;
 
 import javax.validation.Valid;
-import java.util.List;
+
 
 @Controller
 public class RegisterController {
@@ -24,15 +20,15 @@ public class RegisterController {
     private UserService userService;
 
     @Autowired
-    public RegisterController(UserService userService){
+    public RegisterController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/user/registration")
-    public String showRegistrationForm(Model model, @RequestParam(required = false) String result){
-        if(result != null){
-            if(result.equals("success"))
-                model.addAttribute("message", "Zostałeś zarejestrowany!");
+    public String showRegistrationForm(Model model, @RequestParam(required = false) String result) {
+        if (result != null) {
+            if (result.equals("success"))
+                model.addAttribute("message", "Zostałeś zarejestrowany, wystarczy już tylko potwierdzić email.");
             else
                 model.addAttribute("message", "Email lub login jest już zajęty");
         }
@@ -42,15 +38,24 @@ public class RegisterController {
     }
 
     @PostMapping("/user/registration")
-    public String register(@Valid @ModelAttribute("user") UserDto user, BindingResult result){
-        if(result.hasErrors()){
+    public String register(@Valid @ModelAttribute("user") UserDto user, BindingResult result) throws UserAlreadyExistException {
+        if (result.hasErrors()) {
             return "registration";
         }
-        try{
-           userService.registerNewUserAccount(user);
-        }catch (UserAlreadyExistException e){
-           return "redirect:/user/registration?result=fail";
-        }
+        userService.registerNewUserAccount(user);
+
         return "redirect:/user/registration?result=success";
     }
+
+    @GetMapping("/user/confirm-account")
+    public String confirmRegistration(@RequestParam String token) throws VerificationTokenExpired {
+        userService.confirmRegistration(token);
+        return "successfulRegister";
+    }
+
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public String pageNotFound() {
+        return "redirect:/user/registration?result=fail";
+    }
+
 }

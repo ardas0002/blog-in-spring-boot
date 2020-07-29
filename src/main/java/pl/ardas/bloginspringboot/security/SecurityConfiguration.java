@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
 @EnableWebSecurity
+@Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private UserPrincipalDetailsService userPrincipalDetailsService;
@@ -32,13 +32,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
-                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/post/**").permitAll()
                 .antMatchers("/page/**").permitAll()
-                .antMatchers("/user/registration").permitAll()
-                .antMatchers("/api/page/**").permitAll()
-                .antMatchers("/api/post/**").permitAll()
+                .antMatchers("/user/**").permitAll()
+                .antMatchers("/api/**").hasRole("USER")
+                .antMatchers("/confirm-account*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

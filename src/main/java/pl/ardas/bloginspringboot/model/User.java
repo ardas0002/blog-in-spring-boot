@@ -42,13 +42,14 @@ public class User {
     private List<Post> posts = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     private List<Comment> comments = new ArrayList<>();
-    private boolean isEnabled;
+    private boolean enabled;
 
-    public User(String login, String firstName, String lastName, String email){
+    public User(String login, String firstName, String lastName, String email, boolean enabled){
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.enabled = enabled;
     }
 
 }

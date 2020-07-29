@@ -1,8 +1,8 @@
 INSERT INTO role (description, role) VALUES ('Default user role', 'ROLE_USER');
 INSERT INTO role (description, role) VALUES ('Admin user role', 'ROLE_ADMIN');
 
-INSERT INTO user (email, first_name, last_name, login, password, is_enabled) VALUES ('ardas@gmail.com', 'Adrian', 'Trocki', 'Ardas', 'secret', true);
-INSERT INTO user (email, first_name, last_name, login, password, is_enabled) VALUES ('jwt231@gmail.com', 'Mateusz', 'Nowak', 'Matt2020', 'secret', true);
+INSERT INTO user (email, first_name, last_name, login, password, enabled) VALUES ('ardas@gmail.com', 'Adrian', 'Trocki', 'Ardas', 'secret', true);
+INSERT INTO user (email, first_name, last_name, login, password, enabled) VALUES ('jwt231@gmail.com', 'Mateusz', 'Nowak', 'Matt2020', 'secret', true);
 
 INSERT INTO user_role (user_id, role_id) VALUES (1, 2);
 INSERT INTO user_role (user_id, role_id) VALUES (2, 1);
