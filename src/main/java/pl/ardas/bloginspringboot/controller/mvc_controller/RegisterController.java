@@ -5,9 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.ardas.bloginspringboot.exception.PostNotFound;
 import pl.ardas.bloginspringboot.exception.UserAlreadyExistException;
-import pl.ardas.bloginspringboot.exception.VerificationTokenExpired;
+import pl.ardas.bloginspringboot.model.User;
 import pl.ardas.bloginspringboot.model.dto.UserDto;
 import pl.ardas.bloginspringboot.service.UserService;
 
@@ -43,18 +42,26 @@ public class RegisterController {
             return "registration";
         }
         userService.registerNewUserAccount(user);
-
         return "redirect:/user/registration?result=success";
     }
 
     @GetMapping("/user/confirm-account")
-    public String confirmRegistration(@RequestParam String token) throws VerificationTokenExpired {
-        userService.confirmRegistration(token);
-        return "successfulRegister";
+    public String confirmRegistration(@RequestParam String token, Model model){
+        User user = userService.confirmRegistration(token);
+        if(!user.isEnabled())
+            model.addAttribute("user",user.getId());
+
+        return "registerEffect";
+    }
+
+    @GetMapping("/user/registration/resend")
+    public String resendConfirmation(@RequestParam Long userId){
+        userService.resendVerificationToken(userId);
+        return "resendVerificationToken";
     }
 
     @ExceptionHandler(UserAlreadyExistException.class)
-    public String pageNotFound() {
+    public String userAlreadyExists() {
         return "redirect:/user/registration?result=fail";
     }
 
