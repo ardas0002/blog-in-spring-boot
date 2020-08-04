@@ -11,7 +11,7 @@ import pl.ardas.bloginspringboot.repository.UserRepository;
 @Service
 public class UserPrincipalDetailsService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserPrincipalDetailsService(UserRepository userRepository){

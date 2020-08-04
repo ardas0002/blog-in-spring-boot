@@ -11,9 +11,9 @@ import pl.ardas.bloginspringboot.model.Post;
 import pl.ardas.bloginspringboot.repository.PostRepository;
 import pl.ardas.bloginspringboot.service.HomeService;
 
-import static org.mockito.BDDMockito.given;
 
 import java.util.List;
+import static org.mockito.BDDMockito.given;
 
 import static org.assertj.core.api.Assertions.*;
 

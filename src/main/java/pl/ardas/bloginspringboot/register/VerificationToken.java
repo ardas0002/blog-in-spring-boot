@@ -16,6 +16,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class VerificationToken {
 
     private final static int expiryTimeInMinutes = 60*24;

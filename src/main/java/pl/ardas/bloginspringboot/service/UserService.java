@@ -15,17 +15,18 @@ import pl.ardas.bloginspringboot.repository.UserRoleRepository;
 import pl.ardas.bloginspringboot.repository.VerificationTokenRepository;
 
 import java.util.Calendar;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class UserService {
 
-    private UserRepository userRepository;
-    private UserRoleRepository userRoleRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final UserRoleRepository userRoleRepository;
+    private final PasswordEncoder passwordEncoder;
     private final static String role = "ROLE_USER";
-    private VerificationTokenRepository verificationTokenRepository;
-    private EmailSenderService emailSenderService;
+    private final VerificationTokenRepository verificationTokenRepository;
+    private final EmailSenderService emailSenderService;
 
     @Autowired
     public UserService(UserRepository userRepository, UserRoleRepository userRoleRepository, PasswordEncoder passwordEncoder,
@@ -37,7 +38,7 @@ public class UserService {
         this.emailSenderService = emailSenderService;
     }
 
-    public User registerNewUserAccount(UserDto userDto) throws UserAlreadyExistException {
+    public void registerNewUserAccount(UserDto userDto) throws UserAlreadyExistException {
         if(emailOrLoginExist(userDto.getEmail(), userDto.getLogin())){
             throw new UserAlreadyExistException();
         }
@@ -51,21 +52,25 @@ public class UserService {
         user.setEnabled(false);
         User userToReturn = userRepository.save(user);
         sendVerificationToken(userToReturn);
-        return userToReturn;
     }
 
-    public void confirmRegistration(String token) throws VerificationTokenExpired {
+    public User confirmRegistration(String token){
         VerificationToken verificationToken = verificationTokenRepository.getByConfirmationToken(token);
         User user = verificationToken.getUser();
         Calendar calendar = Calendar.getInstance();
 
         if((verificationToken.getExpiryDate().getTime() - calendar.getTime().getTime()) <= 0){
            verificationTokenRepository.delete(verificationToken);
-           throw new VerificationTokenExpired();
+           return user;
         }else{
             user.setEnabled(true);
-            userRepository.save(user);
+            verificationTokenRepository.delete(verificationToken);
+            return userRepository.save(user);
         }
+    }
+    public void resendVerificationToken(Long userId){
+        Optional<User> user = userRepository.findById(userId);
+        sendVerificationToken(user.get());
     }
 
     private void sendVerificationToken(User user){
